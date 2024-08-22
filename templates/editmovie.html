@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Update Movie</h3>
+
+<form method="post" enctype="multipart/form-data" action="{% url 'updatemovie' movie_id=data.id %}">
+    {% csrf_token %}
+    <label for="">Title:</label>
+    <input type="text" name="title" value="{{ data.title }}"><br>
+    <label for="">Poster</label>
+    <input type="file" name="poster"><br>
+    {% if data.poster %}
+        <img src="{{ data.poster }}" alt="{{ data.title }}" style="max-width: 300px;"><br>
+    {% endif %}    
+    <label for="">Description:</label>
+    <input type="textarea" name="description" value="{{ data.description }}"><br>
+    <label for="">Release Date:</label>
+    <input type="date" name="release_date" value="{{ data.release_date }}"><br>
+    <label for="">Actors </label>
+    <input type="text" name="actors" value="{{ data.actors }}"><br>
+    <label for="">Youtube Link:</label>
+    <input type="text" name="trailer_link" value="{{ data.trailer_link }}"><br>
+    
+    <button class="tm-btn-danger" type="submit">Submit</button>
+</form>
+
+
+
+{% endblock %}

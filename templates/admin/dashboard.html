@@ -1,0 +1,69 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+{% block content %}
+
+
+<h2><strong>User Profiles</strong></h2>
+<div class="row">
+    {% for user in users %}
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Username:{{user.username}}</h5>
+          <p class="card-text">Email:{{user.email}}</p>
+          <p class="card-text">Name:{{user.first_name}} {{user.last_name}}</p>
+
+          <form method="post" action="{% url 'adminuserdelete' user.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{user.username}}?')">Delete User</button>
+        </form>         
+      </div>
+      </div>
+    </div>
+    {% endfor %}  
+</div>
+
+
+<h2><strong>Movie Operations</strong></h2>
+
+<div  style="overflow-x:auto;">
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Release Date</th>
+        <th scope="col">Actors</th>
+        <th scope="col">Category</th>
+        <th scope="col">Operations</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+      <tr>
+        <th scope="row">{{movie.id}}</th>
+        <td>
+            <img src="{{ movie.poster }}" alt=""width="100" height="100">
+            {{movie.title}}
+        </td>
+        <td>{{movie.description}}</td>
+        <td>{{movie.release_date}}</td>
+        <td>{{movie.actors}}</td>
+        <td>{{movie.category.name}}</td>
+        <td>
+            <a href="{{ movie.trailer_link }}" target="_blank"><button class="btn btn-secondary" >Trailer Link</button></a>
+            <form method="post" action="{% url 'movieadmindelete' movie.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{movie.title}}?')">Delete Movie</button>
+          </form>        
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+
+{% endblock %}
