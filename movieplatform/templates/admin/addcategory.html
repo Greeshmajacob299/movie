@@ -1,0 +1,14 @@
+{% extends 'admin/adminbase.html' %}
+{% load static %}
+{% block content %}
+<h3>Add Category/Genre</h3>
+
+<form action="" method="post" class="form-control">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <button class="btn btn-danger" type="submit">Submit</button>
+
+</form>
+
+{% endblock %}

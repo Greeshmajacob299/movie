@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="welcome-message">
+    <h2>Welcome, {{ user.first_name }}!</h2>
+    <p>We're glad to have you back. Explore the latest movies, update your profile, or check out your favorite reviews.</p>
+    <a href="{% url 'index' %}" class="btn btn-secondary">Explore Movies</a>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

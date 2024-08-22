@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Movie House</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />    
+	<link href="{% static 'assets/css/templatemo-style.css' %}" rel="stylesheet" />
+</head>
+<!--
+
+Simple House
+
+https://templatemo.com/tm-539-simple-house
+
+-->
+<body> 
+
+	<div class="container">
+	<!-- Top box -->
+		<!-- Logo & Site Name -->
+		<div class="placeholder">
+			<div class="parallax-window" data-parallax="scroll" data-image-src="{% static 'assets/img/movie.jpg' %}">
+				<div class="tm-header">
+					<div class="row tm-header-inner">
+						<div class="col-md-6 col-12">
+							<img src="{% static 'assets/img/logo.jpg' %}" style="width: 10;" alt="Logo" class="tm-site-logo" /> 
+							<div class="tm-site-text-box">
+								<h1 class="tm-site-title">Movie House</h1>
+								<h6 class="tm-site-description">Innovating The Art Of Movies</h6>	
+							</div>
+						</div>
+						<nav class="col-md-6 col-12 tm-nav">
+							<ul class="tm-nav-ul">
+								<li class="tm-nav-li"><a href="{% url 'index' %}" class="tm-nav-link active">Home</a></li>
+								<li class="tm-nav-li"><a href="{% url 'addmovie' %}" class="tm-nav-link">Add movie</a></li>
+								<li class="tm-nav-li"><a href="{% url 'editdetail' request.user.id %}" class="tm-nav-link">My Profile</a></li>
+								<li class="tm-nav-li"><a href="{% url 'logout' %}" class="tm-nav-link">Logout</a></li>
+								<form class="d-flex" method="post" action="{% url 'index' %}">
+									{% csrf_token %}
+									<input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search" required>
+									
+								
+									<button class="btn btn-outline-success" type="submit">Search</button>
+								</form>
+							</ul>
+						</nav>	
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<main>
+			<header class="row tm-welcome-section">
+				<h2 class="col-12 text-center tm-section-title">Welcome to Movie House</h2>
+				<p class="col-12 text-center">Movie House helps you find movies you will like. Rate movies to build a custom taste profile, then Movie house recommends other movies for you to watch.Learn more about movies with rich data, images, and trailers.</p>
+			</header>
+
+
+			<!-- Gallery -->
+		<div class="container-lg">
+			<div class="row">
+				{% for movie in movies %}
+					<div class="card" style="width:fit-content;margin-left: 70px;">
+						<img src="{{movie.poster}}" class="card-img-top" alt="..." style="width: 300px;height: 300px;">
+						<div class="card-body">
+						<h3 class="card-title">{{movie.title}}</h3>
+						<p class="card-text">{{movie.actors}}</p>
+						<p class="card-text"><b>Genre/Category:</b>{{movie.category.name}}</p>
+						<a href="{% url 'moviedetail' movie.id %}" class="btn btn-primary">Click to Read More</a>
+						</div>
+				  	</div>
+				{% endfor %}
+			</div>
+		</div>
+
+			<div class="pagination">
+       		 	<span class="step-links">
+					{% if movies.has_previous %}
+						<a href="?page=1">&laquo; First</a>
+						<a href="?page={{ movies.previous_page_number }}">Previous</a>
+					{% endif %}
+
+					<span class="current">
+						Page {{ movies.number }} of {{ movies.paginator.num_pages }}
+					</span>
+
+					{% if movies.has_next %}
+						<a href="?page={{ movies.next_page_number }}">Next</a>
+						<a href="?page={{ movies.paginator.num_pages }}">Last &raquo;</a>
+					{% endif %}
+        		</span>
+    				
+			
+			</div>
+			
+			
+		</main>
+
+	</div>
+	<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+	<script src="{% static 'assets/js/parallax.min.js' %}"></script>
+
+</body>
+</html>

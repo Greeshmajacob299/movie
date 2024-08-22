@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h3>Edit My Profile</h3>
+
+<form method="post" action="{% url 'editprofile' data.id %}">
+    {% csrf_token %}
+    <div class="form-control">
+    <label for="">Username:</label>
+    <input type="text" name="username" value="{{ data.username }}"><br></div>
+    
+    <div class="form-control">
+    <label for="">First Name</label>
+    <input type="text" name="first_name" value="{{ data.first_name}}"><br></div>
+
+    <div class="form-control">
+    <label for="">Last Name:</label>
+    <input type="text" name="last_name" value="{{ data.last_name }}"><br></div>
+
+    <div class="form-control">
+    <label for="">Email</label>
+    <input type="email" name="email" value="{{ data.email }}"><br></div>
+
+    <div class="form-control">
+    <label for="">Password </label>
+    <input type="password" name="password" value="{{ data.password }}"><br></div>
+    
+    <button class="tm-btn-danger" type="submit">Submit</button>
+</form>
+
+
+
+{% endblock %}
